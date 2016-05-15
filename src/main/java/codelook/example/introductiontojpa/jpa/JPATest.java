@@ -38,16 +38,13 @@ public class JPATest {
 
 		tx.commit();
 
-		// Querying the contents of the database using JPQL query
-		Query q = em.createQuery("SELECT p FROM Product p");
-
 		@SuppressWarnings("unchecked")
-		List<Product> results = q.getResultList();
+		List<Product> results = em.createQuery("SELECT p FROM Product p")
+			.getResultList();
 
 		System.out.println("List of products\n----------------");
 
 		for (Product p : results) {
-
 			System.out.println(p.getName() + " (id=" + p.getId() + ")");
 		}
 

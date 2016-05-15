@@ -3,67 +3,51 @@ package codelook.example.introductiontojpa.jpa;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+
 @Entity
 public class Product {
 
 	@Id
 	private Integer id = null;
-
 	private String name = null;
 
-	public Integer getId() {
+	public Integer getId() { return id; }
+	public void setId(Integer id) { this.id = id; }
 
-		return id;
-	}
-
-	public void setId(Integer id) {
-
-		this.id = id;
-	}
-
-	public String getName() {
-
-		return name;
-	}
-
-	public void setName(String name) {
-
-		this.name = name;
-	}
+	public String getName() { return name; }
+	public void setName(String name) { this.name = name; }
 
 	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result + ((name == null) ? 0 : name.hashCode());
-		return result;
+	public int hashCode() {		
+		return new HashCodeBuilder()
+			.append(this.id)
+			.append(this.name)
+			.toHashCode();
 	}
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Product other = (Product) obj;
-		if (id == null) {
-			if (other.id != null)
-				return false;
-		} else if (!id.equals(other.id))
-			return false;
-		if (name == null) {
-			if (other.name != null)
-				return false;
-		} else if (!name.equals(other.name))
-			return false;
-		return true;
+
+		if (obj == null) { return false; }		
+		if (obj == this) { return true; }
+		if (obj.getClass() != getClass()) { return false; }
+		
+		Product rhs = (Product) obj;
+		
+		return new EqualsBuilder()
+			.append(this.getId(), rhs.getId())
+			.append(this.getName(), rhs.getName())
+			.isEquals();
 	}
 
 	@Override
 	public String toString() {
-		return "Product [id=" + id + ", name=" + name + "]";
+		return new ToStringBuilder(this)
+			.append("id", this.id)
+			.append("name", this.name)
+			.toString();
 	}
 }
