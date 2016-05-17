@@ -59,10 +59,6 @@ public class JPATest {
 		System.out.println("Native query results:");
 		for(Object[] record : nativeResults) {
 			System.out.println(record[0] + " | " + record[1]);
-//			for(Object column : record) {
-//				System.out.println(column);	
-//			}
-			System.out.println("--------------------------------"); 			
 		}
 		
 		// Closing connection
